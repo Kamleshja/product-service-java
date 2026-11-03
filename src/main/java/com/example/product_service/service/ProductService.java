@@ -1,9 +1,7 @@
 package com.example.product_service.service;
 
 import com.example.product_service.client.DummyJsonClient;
-import com.example.product_service.dto.Product;
-import com.example.product_service.dto.ProductPageResponse;
-import com.example.product_service.dto.ProductResponse;
+import com.example.product_service.dto.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -129,5 +127,17 @@ public class ProductService {
         }
 
         return comparator;
+    }
+
+    public CreateProductResponse createProduct(CreateProductRequest request) {
+        Product product = dummyJsonClient.createProduct(request);
+
+        return new CreateProductResponse(
+                product.id(),
+                product.title(),
+                product.description(),
+                product.category(),
+                product.price()
+        );
     }
 }

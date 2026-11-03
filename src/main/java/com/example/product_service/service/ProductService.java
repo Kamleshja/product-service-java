@@ -83,15 +83,22 @@ public class ProductService {
 
         long totalElements = products.size();
 
+        // Calculate total pages
+        int totalPages = (int) Math.ceil((double) totalElements / size);
+
+        // Validate requested page
+        if (page >= totalPages && totalElements > 0) {
+            throw new IllegalArgumentException(
+                    "Invalid page number. Total available pages: " + totalPages
+            );
+        }
+
         int startIndex = page * size;
 
         int endIndex = Math.min(startIndex + size, products.size());
 
         List<Product> paginatedProducts =
                 products.subList(startIndex, endIndex);
-
-        // Calculate total pages
-        int totalPages = (int) Math.ceil((double) totalElements / size);
 
         // Check whether next page exists
         boolean hasNext = page < totalPages - 1;

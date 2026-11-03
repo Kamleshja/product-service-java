@@ -26,8 +26,11 @@ public class ProductController {
 
     @GetMapping
     public ProductPageResponse getAllProducts(
-            @RequestParam(defaultValue = "0") @Min(0) int page,
-            @RequestParam(defaultValue = "10") @Min(1) @Max(30) int size,
+            @RequestParam(defaultValue = "0") @Min(value = 0, message = "Page number should start from 0") int page,
+            @RequestParam(defaultValue = "10")
+                @Min(value = 1, message = "Size must be greater than or equal to 1")
+                @Max(value = 30, message = "Size must be less than or equal to 30")
+            int size,
             @RequestParam MultiValueMap<String, String> params,
             @RequestParam(required = false) String category,
             @RequestParam(required = false) String brand){

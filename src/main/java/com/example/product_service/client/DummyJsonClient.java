@@ -1,5 +1,7 @@
 package com.example.product_service.client;
 
+import com.example.product_service.dto.CreateProductRequest;
+import com.example.product_service.dto.Product;
 import com.example.product_service.dto.ProductResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
@@ -19,5 +21,13 @@ public class DummyJsonClient {
                 .uri("/products")
                 .retrieve()
                 .body(ProductResponse.class);
+    }
+
+    public Product createProduct(CreateProductRequest request) {
+        return restClient.post()
+                .uri("/products/add")
+                .body(request)
+                .retrieve()
+                .body(Product.class);
     }
 }

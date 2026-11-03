@@ -1,15 +1,16 @@
 package com.example.product_service.controller;
 
+import com.example.product_service.dto.CreateProductRequest;
+import com.example.product_service.dto.CreateProductResponse;
 import com.example.product_service.dto.Product;
 import com.example.product_service.dto.ProductPageResponse;
 import com.example.product_service.service.ProductService;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import org.springframework.util.MultiValueMap;
 
@@ -42,5 +43,11 @@ public class ProductController {
         }
 
         return productService.getAllProducts(page, size, sort, category, brand);
+    }
+
+    @PostMapping
+    public CreateProductResponse createProduct(
+            @Valid @RequestBody CreateProductRequest request) {
+        return productService.createProduct(request);
     }
 }

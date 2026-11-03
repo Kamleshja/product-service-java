@@ -2,6 +2,8 @@ package com.example.product_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestClient;
 
 @SpringBootApplication
 public class ProductServiceApplication {
@@ -10,4 +12,10 @@ public class ProductServiceApplication {
 		SpringApplication.run(ProductServiceApplication.class, args);
 	}
 
+	@Bean
+	public RestClient restClient() {
+		return RestClient.builder()
+				.baseUrl("https://dummyjson.com")
+				.build();
+	}
 }

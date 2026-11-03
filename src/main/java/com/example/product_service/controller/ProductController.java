@@ -1,13 +1,11 @@
 package com.example.product_service.controller;
 
-import com.example.product_service.dto.CreateProductRequest;
-import com.example.product_service.dto.CreateProductResponse;
-import com.example.product_service.dto.Product;
-import com.example.product_service.dto.ProductPageResponse;
+import com.example.product_service.dto.*;
 import com.example.product_service.service.ProductService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Positive;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,5 +47,13 @@ public class ProductController {
     public CreateProductResponse createProduct(
             @Valid @RequestBody CreateProductRequest request) {
         return productService.createProduct(request);
+    }
+
+    @PutMapping("/{id}")
+    public UpdateProductResponse updateProduct(
+            @PathVariable @Positive(message = "Product ID must be greater than 0") int id,
+            @Valid @RequestBody UpdateProductRequest request) {
+
+        return productService.updateProduct(id, request);
     }
 }

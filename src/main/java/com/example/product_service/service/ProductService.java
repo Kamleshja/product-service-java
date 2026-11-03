@@ -140,4 +140,21 @@ public class ProductService {
                 product.price()
         );
     }
+
+    public UpdateProductResponse updateProduct(
+            int id,
+            UpdateProductRequest request) {
+
+        dummyJsonClient.getProductById(id);
+
+        Product product = dummyJsonClient.updateProduct(id, request);
+
+        return new UpdateProductResponse(
+                product.id(),
+                product.title(),
+                product.description(),
+                product.category(),
+                product.price()
+        );
+    }
 }

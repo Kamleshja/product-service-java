@@ -1,9 +1,6 @@
 package com.example.product_service.client;
 
-import com.example.product_service.dto.CreateProductRequest;
-import com.example.product_service.dto.Product;
-import com.example.product_service.dto.ProductResponse;
-import com.example.product_service.dto.UpdateProductRequest;
+import com.example.product_service.dto.*;
 import com.example.product_service.exception.ProductNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
@@ -53,5 +50,13 @@ public class DummyJsonClient {
                 .body(request)
                 .retrieve()
                 .body(Product.class);
+    }
+
+    public CartResponse createCart(CreateCartRequest request) {
+        return restClient.post()
+                .uri("/carts/add")
+                .body(request)
+                .retrieve()
+                .body(CartResponse.class);
     }
 }
